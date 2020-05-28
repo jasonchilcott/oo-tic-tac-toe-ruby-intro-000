@@ -76,7 +76,7 @@ def won?
 end
 
 def full?
-  @board.all?{|current_player| current_player == "X" || current_player == "O"}
+  @board.all?{|token| token == "X" || token == "O"}
 end
 
 def draw?
