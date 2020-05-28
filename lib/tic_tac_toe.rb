@@ -42,11 +42,11 @@ def turn
   puts "Please enter 1-9:"
   input = gets.strip
   index = input_to_index(input)
-  if valid_move?(@board, index)
-    move(@board, index, current_player(@board))
-    display_board(@board)
+  if valid_move?(index)
+    move(index, current_player)
+    display_board
   else
-    turn(@board)
+    turn
   end
 end
 
@@ -55,14 +55,14 @@ def turn_count
 end
 
 def current_player
-  turn_count(@board).even? ? "X" : "O"
+  turn_count.even? ? "X" : "O"
 end
 
 def play
-turn(@board) until over?(@board)
-  if won?(@board)
-    puts "Congratulations #{winner(@board)}!"
-  elsif draw?(@board)
+turn until over?
+  if won?
+    puts "Congratulations #{winner}!"
+  else
     puts "Cat's Game!"
   end
 end
@@ -71,7 +71,7 @@ def won?
   WIN_COMBINATIONS.detect do |combo|
     @board[combo[0]] == @board[combo[1]] &&
     @board[combo[1]] == @board[combo[2]] &&
-    position_taken?(@board, combo[0])
+    position_taken?(combo[0])
   end
 end
 
@@ -80,15 +80,15 @@ def full?
 end
 
 def draw?
-  !won?(@board) && full?(@board)
+  !won? && full?
 end
 
 def over?
-  won?(@board) || draw?(@board)
+  won? || draw?
 end
 
 def winner
-  if winning_combo = won?(@board)
+  if winning_combo = won?
     @board[winning_combo.first]
   end
 end
