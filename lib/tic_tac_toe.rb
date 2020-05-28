@@ -26,8 +26,8 @@ def input_to_index(user_input)
   user_input.to_i - 1
 end
 
-def move(@board, index, current_player)
-  @board[index] = current_player
+def move(@board, index, token)
+  @board[index] = token
 end
 
 def position_taken?(@board, index)
@@ -43,7 +43,7 @@ def turn(@board)
   input = gets.strip
   index = input_to_index(input)
   if valid_move?(@board, index)
-    move(@board, index, current_player(@board))
+    move(@board, index, token(@board))
     display_board(@board)
   else
     turn(@board)
@@ -60,7 +60,7 @@ def turn_count(@board)
   turns
 end
 
-def current_player(@board)
+def token(@board)
   turn_count(@board).even? ? "X" : "O"
 end
 
