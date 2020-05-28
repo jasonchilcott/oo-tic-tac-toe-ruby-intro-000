@@ -35,7 +35,7 @@ def position_taken?(index)
 end
 
 def valid_move?(index)
-  index.between?(0,8) && !position_taken?(@board, index)
+  index.between?(0,8) && !position_taken?(index)
 end
 
 def turn
@@ -43,7 +43,7 @@ def turn
   input = gets.strip
   index = input_to_index(input)
   if valid_move?(@board, index)
-    move(@board, index, token(@board))
+    move(@board, index, current_player(@board))
     display_board(@board)
   else
     turn(@board)
@@ -60,7 +60,7 @@ def turn_count
   turns
 end
 
-def token
+def current_player
   turn_count(@board).even? ? "X" : "O"
 end
 
@@ -82,7 +82,7 @@ def won?
 end
 
 def full?
-  @board.all?{|token| token == "X" || token == "O"}
+  @board.all?{|current_player| token == "X" || token == "O"}
 end
 
 def draw?
